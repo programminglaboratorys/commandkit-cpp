@@ -1,0 +1,362 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/build/install/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
+      }
+    },
+    {
+      "name": "arch-x64",
+      "hidden": true,
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "host=x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "arch-x86",
+      "hidden": true,
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      },
+      "toolset": {
+        "value": "host=x64",
+        "strategy": "external"
+      }
+    },
+    {
+      "name": "type-Debug",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "type-Release",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "type-RelWithDebInfo",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "type-MinSizeRel",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "MinSizeRel"
+      }
+    },
+    {
+      "name": "type-ReleaseNoOptWithDeb",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "ReleaseNoOptWithDeb",
+        "CMAKE_CXX_FLAGS_RELEASENOOPTWITHDEB": "/Od /Zi /DNDEBUG /FS",
+        "CMAKE_EXE_LINKER_FLAGS_RELEASENOOPTWITHDEB": "/DEBUG /INCREMENTAL:NO",
+        "CMAKE_SHARED_LINKER_FLAGS_RELEASENOOPTWITHDEB": "/DEBUG /INCREMENTAL:NO",
+        "CMAKE_MODULE_LINKER_FLAGS_RELEASENOOPTWITHDEB": "/DEBUG /INCREMENTAL:NO"
+      }
+    },
+    {
+      "name": "type-DebugASan",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "DebugASan",
+        "CMAKE_CXX_FLAGS_DEBUGASAN": "/Od /Zi /FS /fsanitize=address",
+        "CMAKE_EXE_LINKER_FLAGS_DEBUGASAN": "/DEBUG /INCREMENTAL:NO",
+        "CMAKE_SHARED_LINKER_FLAGS_DEBUGASAN": "/DEBUG /INCREMENTAL:NO",
+        "CMAKE_MODULE_LINKER_FLAGS_DEBUGASAN": "/DEBUG /INCREMENTAL:NO"
+      }
+    },
+    {
+      "name": "x64-Debug",
+      "displayName": "x64 Debug",
+      "description": "No optimization, full debug info, runtime checks",
+      "inherits": [
+        "base",
+        "arch-x64",
+        "type-Debug"
+      ]
+    },
+    {
+      "name": "x64-Release",
+      "displayName": "x64 Release",
+      "description": "Full optimization, no debug info",
+      "inherits": [
+        "base",
+        "arch-x64",
+        "type-Release"
+      ]
+    },
+    {
+      "name": "x64-RelWithDebInfo",
+      "displayName": "x64 RelWithDebInfo",
+      "description": "Optimized plus debug info: use this for the VS profiler",
+      "inherits": [
+        "base",
+        "arch-x64",
+        "type-RelWithDebInfo"
+      ]
+    },
+    {
+      "name": "x64-MinSizeRel",
+      "displayName": "x64 MinSizeRel",
+      "description": "Optimize for size",
+      "inherits": [
+        "base",
+        "arch-x64",
+        "type-MinSizeRel"
+      ]
+    },
+    {
+      "name": "x64-ReleaseNoOptWithDeb",
+      "displayName": "x64 ReleaseNoOptWithDeb",
+      "description": "Release without optimization, with debug info (NDEBUG on, asserts off)",
+      "inherits": [
+        "base",
+        "arch-x64",
+        "type-ReleaseNoOptWithDeb"
+      ]
+    },
+    {
+      "name": "x64-DebugASan",
+      "displayName": "x64 DebugASan",
+      "description": "Debug plus AddressSanitizer (needs the VS C++ AddressSanitizer component)",
+      "inherits": [
+        "base",
+        "arch-x64",
+        "type-DebugASan"
+      ]
+    },
+    {
+      "name": "x86-Debug",
+      "displayName": "x86 Debug",
+      "description": "No optimization, full debug info, runtime checks",
+      "inherits": [
+        "base",
+        "arch-x86",
+        "type-Debug"
+      ]
+    },
+    {
+      "name": "x86-Release",
+      "displayName": "x86 Release",
+      "description": "Full optimization, no debug info",
+      "inherits": [
+        "base",
+        "arch-x86",
+        "type-Release"
+      ]
+    },
+    {
+      "name": "x86-RelWithDebInfo",
+      "displayName": "x86 RelWithDebInfo",
+      "description": "Optimized plus debug info: use this for the VS profiler",
+      "inherits": [
+        "base",
+        "arch-x86",
+        "type-RelWithDebInfo"
+      ]
+    },
+    {
+      "name": "x86-MinSizeRel",
+      "displayName": "x86 MinSizeRel",
+      "description": "Optimize for size",
+      "inherits": [
+        "base",
+        "arch-x86",
+        "type-MinSizeRel"
+      ]
+    },
+    {
+      "name": "x86-ReleaseNoOptWithDeb",
+      "displayName": "x86 ReleaseNoOptWithDeb",
+      "description": "Release without optimization, with debug info (NDEBUG on, asserts off)",
+      "inherits": [
+        "base",
+        "arch-x86",
+        "type-ReleaseNoOptWithDeb"
+      ]
+    },
+    {
+      "name": "x86-DebugASan",
+      "displayName": "x86 DebugASan",
+      "description": "Debug plus AddressSanitizer (needs the VS C++ AddressSanitizer component)",
+      "inherits": [
+        "base",
+        "arch-x86",
+        "type-DebugASan"
+      ]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "x64-Debug",
+      "configurePreset": "x64-Debug"
+    },
+    {
+      "name": "x64-Release",
+      "configurePreset": "x64-Release"
+    },
+    {
+      "name": "x64-RelWithDebInfo",
+      "configurePreset": "x64-RelWithDebInfo"
+    },
+    {
+      "name": "x64-MinSizeRel",
+      "configurePreset": "x64-MinSizeRel"
+    },
+    {
+      "name": "x64-ReleaseNoOptWithDeb",
+      "configurePreset": "x64-ReleaseNoOptWithDeb"
+    },
+    {
+      "name": "x64-DebugASan",
+      "configurePreset": "x64-DebugASan"
+    },
+    {
+      "name": "x86-Debug",
+      "configurePreset": "x86-Debug"
+    },
+    {
+      "name": "x86-Release",
+      "configurePreset": "x86-Release"
+    },
+    {
+      "name": "x86-RelWithDebInfo",
+      "configurePreset": "x86-RelWithDebInfo"
+    },
+    {
+      "name": "x86-MinSizeRel",
+      "configurePreset": "x86-MinSizeRel"
+    },
+    {
+      "name": "x86-ReleaseNoOptWithDeb",
+      "configurePreset": "x86-ReleaseNoOptWithDeb"
+    },
+    {
+      "name": "x86-DebugASan",
+      "configurePreset": "x86-DebugASan"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "x64-Debug",
+      "configurePreset": "x64-Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x64-Release",
+      "configurePreset": "x64-Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x64-RelWithDebInfo",
+      "configurePreset": "x64-RelWithDebInfo",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x64-MinSizeRel",
+      "configurePreset": "x64-MinSizeRel",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x64-ReleaseNoOptWithDeb",
+      "configurePreset": "x64-ReleaseNoOptWithDeb",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x64-DebugASan",
+      "configurePreset": "x64-DebugASan",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x86-Debug",
+      "configurePreset": "x86-Debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x86-Release",
+      "configurePreset": "x86-Release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x86-RelWithDebInfo",
+      "configurePreset": "x86-RelWithDebInfo",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x86-MinSizeRel",
+      "configurePreset": "x86-MinSizeRel",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x86-ReleaseNoOptWithDeb",
+      "configurePreset": "x86-ReleaseNoOptWithDeb",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "x86-DebugASan",
+      "configurePreset": "x86-DebugASan",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

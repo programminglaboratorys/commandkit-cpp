@@ -1,0 +1,7 @@
+add_executable(basic_usage basic_usage.cpp)
+target_link_libraries(basic_usage PRIVATE ${PROJECT_NAME})
+if(MSVC)
+    target_compile_options(basic_usage PRIVATE /W4 /utf-8)
+else()
+    target_compile_options(basic_usage PRIVATE -Wall -Wextra -pedantic)
+endif()
