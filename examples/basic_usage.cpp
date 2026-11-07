@@ -1,4 +1,4 @@
-#define CMDKIT_USE_HASHMAP
+//#define CMDKIT_USE_HASHMAP
 #include <commandkit/commandkit.hpp>
 
 #include <iostream>
