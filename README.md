@@ -96,7 +96,7 @@ there is 3 containers
 ## Building
 
 
-Requires CMake 3.21+ and a C++17 compiler. on Windows, open the folder in Visual Studio 2022 and pick a configuration from the dropdown, or from a terminal (after loading the matching `vcvars64.bat`/`vcvars32.bat`):
+Requires CMake 3.14+ and a C++17 compiler. on Windows, open the folder in Visual Studio 2022 and pick a configuration from the dropdown, or from a terminal (after loading the matching `vcvars64.bat`/`vcvars32.bat`):
 on linux its the same process
 ```
 cmake --preset x64-Debug
