@@ -1,8 +1,6 @@
-<!-- PROJECT LOGO -->
+<!-- TODO: PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="./docs/logo.svg" alt="commandkit logo" width="80" height="80">
-
 <h3 align="center">commandkit</h3>
 
 <p align="center">
