@@ -21,7 +21,7 @@
 ---
 
 ## About
-easy to use single header fast command manager library, 0 string allocations as much as possible while being extremely fast!
+easy to use single header fast command manager library, zero string allocations on the hot path while being extremely fast!
 (my rewrite port of [python commandkit](https://github.com/programminglaboratorys/commandkit), made faster, better imo)
 
 there is few options to its internal container to give you more control over its speed
@@ -89,8 +89,8 @@ int main() {
 
 there is 3 containers
 - **std::vector** (*the default*): a sorted vector, uses binary search to find them ensuring 0 allocations and consistancy speed
-- **unorderd_map**: hash map, enabled through CMDKIT_USE_HASHMAP macro, would use transparent lookup in C++20 otherwise it would sadly allocate strings to look them up
-- **absl::flat_hash_map** (*recommended*): a flat hash map, enabled through CMDKIT_USE_ABSEIL macro, uses transparent lookup in C++20 AND C++17! its a fast SIMD container and keeps elements tight allowing for a better CPU cache locality, the best option
+- **unordered_map**: hash map, enabled through CMDKIT_USE_HASHMAP macro, uses transparent lookup in C++20, otherwise allocates a temporary string per lookup
+- **absl::flat_hash_map** (*recommended*): a flat hash map, enabled through CMDKIT_USE_ABSEIL macro, uses transparent lookup in both C++17 and C++20. a fast SIMD container that keeps elements tight allowing for better CPU cache locality, the best option
 
 
 ## Building
@@ -98,7 +98,6 @@ there is 3 containers
 
 Requires CMake 3.21+ and a C++17 compiler. on Windows, open the folder in Visual Studio 2022 and pick a configuration from the dropdown, or from a terminal (after loading the matching `vcvars64.bat`/`vcvars32.bat`):
 on linux its the same process
-
 ```
 cmake --preset x64-Debug
 cmake --build --preset x64-Debug
