@@ -6,13 +6,13 @@
 <h3 align="center">commandkit</h3>
 
 <p align="center">
-  <strong>one sentence about what it does..</strong>
+  <strong>fast and easy to use library to parse string to commands</strong>
 </p>
 
 <p align="center">
   <a href="#usage">Usage</a> •
   <a href="#building">Building</a> •
-  <a href="#project-structure">Project Structure</a> •
+  <a href="#todo">TODO</a> •
   <a href="#license">License</a>
 </p>
 
@@ -21,16 +21,77 @@
 ---
 
 ## About
+easy to use single header fast command manager library, 0 string allocations as much as possible while being extremely fast!
+(my rewrite port of [python commandkit](https://github.com/programminglaboratorys/commandkit), made faster, better imo)
 
-What this project is, and what it is not.
+there is few options to its internal container to give you more control over its speed
+
+## TODO
+- rewrite features section
+- make tests
+- make more complex examples
+- write small MVP doc
 
 ## Usage
 
+`examples/basic_usage.cpp`
 ```cpp
+//#define CMDKIT_USE_HASHMAP // use a hash map as the container for commands instead of sorted vector
 #include <commandkit/commandkit.hpp>
 
-auto text = commandkit::greeting();
+#include <iostream>
+
+int main() {
+    commandkit::CommandManager cm;
+
+    cm.command("add", [](int a, int b) { // example of 2 intagers
+        std::cout << "add: " << a + b << "\n";
+    });
+
+    cm.command("greet", [](std::string name) { // example of a string
+        std::cout << "greet: Hello, " << name << "!\n";
+    });
+
+    cm.command("announce", [](std::string title, commandkit::Rest msg) { // rest take the left over content
+        std::cout << "announce: [" << title << "] " << msg.value << "\n";
+    });
+
+    cm.command("sum", [](commandkit::Greedy<int> nums) { // consume as much numbers possible
+        int total = 0;
+        for (int n : nums) total += n;
+        std::cout << "sum: " << total << "\n";
+    });
+
+    cm.command("opt", [](std::optional<int> x) { // optional arguments are supported!
+        std::cout << "opt: " << (x ? std::to_string(*x) : "none") << "\n";
+    });
+
+    auto run = [&](std::string_view s) {
+        int r = cm.process_command(s);
+        if (r != 0) std::cout << "ERROR " << r << " on: " << s << "\n";
+    };
+
+    run("add 10 20");
+    run("greet Casey");
+    run("greet \"John Doe\""); // respects qoutes, ' or " supported
+    run("announce \"System Alert\" This is a test message."); // respects qoutes
+    run("sum 1 2 3 4 5");
+    run("opt 42");
+    run("opt");
+    run("unknown");
+    run("add 10 oops");
+
+    return 0;
+}
 ```
+
+### internal containers
+
+there is 3 containers
+- **std::vector** (*the default*): a sorted vector, uses binary search to find them ensuring 0 allocations and consistancy speed
+- **unorderd_map**: hash map, enabled through CMDKIT_USE_HASHMAP macro, would use transparent lookup in C++20 otherwise it would sadly allocate strings to look them up
+- **absl::flat_hash_map** (*recommended*): a flat hash map, enabled through CMDKIT_USE_ABSEIL macro, uses transparent lookup in C++20 AND C++17! its a fast SIMD container and keeps elements tight allowing for a better CPU cache locality, the best option
+
 
 ## Building
 
