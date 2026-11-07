@@ -34,7 +34,9 @@ auto text = commandkit::greeting();
 
 ## Building
 
-Requires CMake 3.21+ and a C++17 compiler. On Windows, open the folder in Visual Studio 2022 and pick a configuration from the dropdown, or from a terminal (after loading the matching `vcvars64.bat`/`vcvars32.bat`):
+
+Requires CMake 3.21+ and a C++17 compiler. on Windows, open the folder in Visual Studio 2022 and pick a configuration from the dropdown, or from a terminal (after loading the matching `vcvars64.bat`/`vcvars32.bat`):
+on linux its the same process
 
 ```
 cmake --preset x64-Debug
@@ -43,17 +45,6 @@ ctest --preset x64-Debug
 ```
 
 Presets: `x64`/`x86` combined with `Debug`, `Release`, `RelWithDebInfo`, `MinSizeRel`, `ReleaseNoOptWithDeb` (no optimization, debug info, `NDEBUG` on) and `DebugASan` (AddressSanitizer). Output goes to `build/<preset>/`.
-
-## Project Structure
-
-```
-include/commandkit/   public headers
-src/                  implementation
-examples/             small programs that use the library
-tests/                test runner (registered with ctest)
-docs/                 documentation and the logo
-CMakePresets.json     build configurations
-```
 
 ## License
 
